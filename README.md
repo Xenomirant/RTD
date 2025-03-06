@@ -14,7 +14,7 @@ Representation Topology Divergence: A Method for Comparing Neural Network Repres
 2. Install ripserplusplus:
 ```pip install git+https://github.com/simonzhang00/ripser-plusplus.git```
 3. Install RTD:
-```pip install git+https://github.com/IlyaTrofimov/RTD.git```
+```pip install git+https://github.com/Xenomirant/RTD.git```
 
 Alternatively, you can use dockerfile.
 In the docker, run ```conda activate py37``` after start. The directory ```RTD/experiments``` contains jupyter notebooks with experiments from the paper.
