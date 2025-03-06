@@ -7,8 +7,8 @@ import torch
 import ripserplusplus as rpp_py
 
 def pdist_gpu(a, b, device = 'cuda:0'):
-    A = torch.tensor(a, dtype = torch.float64)
-    B = torch.tensor(b, dtype = torch.float64)
+    A = a.detach().clone()
+    B = b.detach().clone()
 
     size = (A.shape[0] + B.shape[0]) * A.shape[1] / 1e9
     max_size = 0.2
@@ -19,21 +19,22 @@ def pdist_gpu(a, b, device = 'cuda:0'):
         parts = 1
 
     pdist = np.zeros((A.shape[0], B.shape[0]))
-    At = A.to(device)
+    #At = A.to(device)
 
     for p in range(parts):
         i1 = int(p * B.shape[0] / parts)
         i2 = int((p + 1) * B.shape[0] / parts)
         i2 = min(i2, B.shape[0])
 
-        Bt = B[i1:i2].to(device)
-        pt = torch.cdist(At, Bt)
+        #Bt = B[i1:i2].to(device)
+        pt = torch.cdist(A, B[i1:i2])
         pdist[:, i1:i2] = pt.cpu()
 
-        del Bt, pt
-        torch.cuda.empty_cache()
+        #del Bt, pt
+        #torch.cuda.empty_cache()
 
-    del At
+    del A, B
+    torch.cuda.empty_cache()
 
     return pdist
 
