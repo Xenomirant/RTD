@@ -5,5 +5,5 @@ if __name__ == "__main__":
         name="rtd",
         author="Ilya Trofimov",
         packages=find_packages(),
-        version = '1.0',
+        version = '1.0.1',
         install_requires=['numpy', 'scipy'])
